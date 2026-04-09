@@ -1,53 +1,29 @@
-# a script to process and count words in a CSV file
 import csv
 
-
-# Load the CSV file
-filename = "demo_responses.csv"
-responses = []
-
-with open(filename, newline="", encoding="utf-8") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        responses.append(row)
+FILENAME = "demo_responses.csv"
 
 
-def count_words(response):
-    """Count the number of words in a response string.
-
-    Takes a string, splits it on whitespace, and returns the word count.
-    Used to measure response length across all participants.
-    """
-    return len(response.split())
+def count_words(text):
+    return len(text.split())
 
 
-# Count words in each response and print a row-by-row summary
-print(f"{'ID':<6} {'Role':<22} {'Words':<6} {'Response (first 60 chars)'}")
-print("-" * 75)
+reviews = []
+with open(FILENAME, newline="", encoding="utf-8") as file:
+    for row in csv.DictReader(file):
+        reviews.append(row["response"])
 
-word_counts = []
+word_counts = [count_words(review) for review in reviews]
 
-for row in responses:
-    participant = row["participant_id"]
-    role = row["role"]
-    response = row["response"]
+print(f"{'Review #':<10}{'Words':<8}Preview")
+print("-" * 70)
+for index, review in enumerate(reviews, start=1):
+    words = count_words(review)
+    preview = review[:60] + ("..." if len(review) > 60 else "")
+    print(f"{index:<10}{words:<8}{preview}")
 
-    # Call our function to count words in this response
-    count = count_words(response)
-    word_counts.append(count)
-
-    # Truncate the response preview for display
-    if len(response) > 60:
-        preview = response[:60] + "..."
-    else:
-        preview = response
-
-    print(f"{participant:<6} {role:<22} {count:<6} {preview}")
-
-# Print summary statistics
-print()
-print("── Summary ─────────────────────────────────")
-print(f"  Total responses : {len(word_counts)}")
-print(f"  Shortest        : {min(word_counts)} words")
-print(f"  Longest         : {max(word_counts)} words")
-print(f"  Average         : {sum(word_counts) / len(word_counts):.1f} words")
+print("\nSummary")
+print("-" * 70)
+print(f"Total responses: {len(word_counts)}")
+print(f"Shortest: {min(word_counts)} words")
+print(f"Longest: {max(word_counts)} words")
+print(f"Average: {sum(word_counts) / len(word_counts):.1f} words")
