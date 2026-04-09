@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HCDE 530 - Response Dashboard</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent-2: #0ea5e9;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-bottom: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+    .bars { display: grid; gap: 8px; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 42px;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+    .bar-track {
+      height: 18px;
+      border-radius: 999px;
+      background: #eef2ff;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      padding: 8px;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 600; }
+    .muted { color: var(--muted); }
+    .error {
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>HCDE 530 Survey Dashboard</h1>
+  <div class="subtitle">Data source: <code>demo_responses.csv</code></div>
+
+  <div class="grid" id="metrics"></div>
+
+  <div class="grid">
+    <section class="card">
+      <h2 class="section-title">Responses by Role</h2>
+      <div id="roleBars" class="bars"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Top 12 Frequent Words</h2>
+      <div id="wordBars" class="bars"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2 class="section-title">Responses (Preview)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Role</th>
+          <th>Words</th>
+          <th>Preview</th>
+        </tr>
+      </thead>
+      <tbody id="responseRows"></tbody>
+    </table>
+  </section>
+
+  <div id="error" class="error"></div>
+
+  <script>
+    const STOP_WORDS = new Set([
+      "the", "a", "an", "and", "or", "but", "to", "of", "in", "on", "for", "from",
+      "with", "that", "this", "it", "is", "are", "was", "were", "be", "been", "being",
+      "as", "at", "by", "we", "i", "our", "my", "you", "they", "them", "their", "me",
+      "us", "so", "if", "than", "then", "do", "does", "did", "have", "has", "had",
+      "just", "not", "into", "about", "out", "up", "down", "more", "most", "all"
+    ]);
+
+    function csvToRows(text) {
+      const rows = [];
+      let current = "";
+      let row = [];
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+        const next = text[i + 1];
+
+        if (ch === "\"") {
+          if (inQuotes && next === "\"") {
+            current += "\"";
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (ch === "," && !inQuotes) {
+          row.push(current);
+          current = "";
+        } else if ((ch === "\n" || ch === "\r") && !inQuotes) {
+          if (ch === "\r" && next === "\n") i += 1;
+          row.push(current);
+          if (row.some((c) => c.trim() !== "")) rows.push(row);
+          row = [];
+          current = "";
+        } else {
+          current += ch;
+        }
+      }
+
+      if (current.length > 0 || row.length > 0) {
+        row.push(current);
+        if (row.some((c) => c.trim() !== "")) rows.push(row);
+      }
+
+      return rows;
+    }
+
+    function rowsToObjects(rows) {
+      if (!rows.length) return [];
+      const headers = rows[0].map((h) => h.trim());
+      return rows.slice(1).map((r) => {
+        const obj = {};
+        headers.forEach((h, idx) => { obj[h] = (r[idx] || "").trim(); });
+        return obj;
+      }).filter((r) => r.participant_id && r.role && r.response);
+    }
+
+    function wordCount(text) {
+      return text.trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    function average(nums) {
+      if (!nums.length) return 0;
+      return nums.reduce((a, b) => a + b, 0) / nums.length;
+    }
+
+    function buildBars(container, entries) {
+      container.innerHTML = "";
+      const max = Math.max(...entries.map(([, n]) => n), 1);
+      entries.forEach(([label, value]) => {
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        row.innerHTML = `
+          <div title="${label}">${label}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${(value / max) * 100}%"></div></div>
+          <div>${value}</div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function render(data) {
+      const counts = data.map((d) => wordCount(d.response));
+      const roleMap = {};
+      const freq = {};
+
+      data.forEach((d) => {
+        roleMap[d.role] = (roleMap[d.role] || 0) + 1;
+        d.response
+          .toLowerCase()
+          .replace(/[^a-z0-9\s]/g, " ")
+          .split(/\s+/)
+          .filter((w) => w && !STOP_WORDS.has(w) && w.length > 2)
+          .forEach((w) => { freq[w] = (freq[w] || 0) + 1; });
+      });
+
+      const metrics = [
+        ["Total responses", data.length],
+        ["Unique roles", Object.keys(roleMap).length],
+        ["Average words", average(counts).toFixed(1)],
+        ["Longest response", Math.max(...counts, 0)]
+      ];
+
+      const metricsEl = document.getElementById("metrics");
+      metricsEl.innerHTML = "";
+      metrics.forEach(([label, val]) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="metric-label">${label}</div>
+          <div class="metric-value">${val}</div>
+        `;
+        metricsEl.appendChild(card);
+      });
+
+      const roleEntries = Object.entries(roleMap).sort((a, b) => b[1] - a[1]);
+      buildBars(document.getElementById("roleBars"), roleEntries);
+
+      const topWords = Object.entries(freq)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 12);
+      buildBars(document.getElementById("wordBars"), topWords);
+
+      const rows = document.getElementById("responseRows");
+      rows.innerHTML = "";
+      data.forEach((d) => {
+        const tr = document.createElement("tr");
+        const preview = d.response.length > 120 ? `${d.response.slice(0, 120)}...` : d.response;
+        tr.innerHTML = `
+          <td>${d.participant_id}</td>
+          <td>${d.role}</td>
+          <td>${wordCount(d.response)}</td>
+          <td class="muted">${preview}</td>
+        `;
+        rows.appendChild(tr);
+      });
+    }
+
+    async function init() {
+      const errorEl = document.getElementById("error");
+      try {
+        const response = await fetch("demo_responses.csv");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        const rows = csvToRows(text);
+        const data = rowsToObjects(rows);
+        if (!data.length) throw new Error("No rows parsed from CSV.");
+        render(data);
+      } catch (err) {
+        errorEl.style.display = "block";
+        errorEl.textContent = "Could not load demo_responses.csv. Open this page from a local server (not file://) so fetch() can read the CSV.";
+        console.error(err);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

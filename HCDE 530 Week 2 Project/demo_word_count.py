@@ -1,3 +1,4 @@
+# a script to process and count words in a CSV file
 import csv
 
 

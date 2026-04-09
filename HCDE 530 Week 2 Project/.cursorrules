@@ -1,0 +1,30 @@
+# HCDE 530 Week 2 Project Rules
+
+This project is a small class assignment with Python, CSV data, and a static HTML dashboard.
+
+## Scope
+- Apply these rules to all edits in this repository.
+
+## Coding Preferences
+- Keep code beginner-friendly and readable.
+- Prefer clear variable names and small, direct functions.
+- Add short comments only when logic is not obvious.
+- Avoid adding heavy dependencies unless explicitly requested.
+
+## Python (`demo_word_count.py`)
+- Keep logic simple and standard-library only.
+- Use UTF-8 file handling and preserve current CSV column names.
+- If changing output, keep summary stats (total, shortest, longest, average).
+
+## Data (`demo_responses.csv`)
+- Do not modify existing rows unless explicitly asked.
+- Preserve header order: `participant_id, role, response`.
+
+## Dashboard (`dashboard.html`)
+- Keep it single-file and framework-free (HTML/CSS/JS only).
+- Ensure it still reads `demo_responses.csv` from the same folder.
+- Keep visual style clean and accessible (high contrast, legible text).
+
+## Git Safety
+- Do not run destructive git commands (e.g., force push, hard reset) without explicit user approval.
+- Keep commits focused and use clear, plain-language messages.
