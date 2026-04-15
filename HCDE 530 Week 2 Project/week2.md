@@ -10,7 +10,7 @@ Personal notes on what this competency means in practice for this class and how 
 
 - **Purpose** — why the script or artifact exists
 - **Inputs and outputs** — what goes in (e.g., files, columns) and what comes out (e.g., printed summary, rows on a page)
-- **How to run it** — enough for a classmate or TA to reproduce results
+- **How to run it** — enough for a classmate to reproduce results
 - **Where data lives** — filenames, locations, and how the code finds them
 
 ## What this week’s project shows
