@@ -1,20 +1,56 @@
 import csv
 
-# Load the survey data from a CSV file
-filename = "week3_survey_messy.csv"
-rows = []
+INPUT_FILE = "week3_survey_messy.csv"
+OUTPUT_FILE = "week3_survey_cleaned.csv"
 
-with open(filename, newline="", encoding="utf-8") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        rows.append(row)
+
+def load_rows(filename):
+    rows = []
+    with open(filename, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            rows.append(row)
+    return rows
+
+
+def clean_rows(rows):
+    cleaned = []
+    for row in rows:
+        role = (row.get("role") or "").strip()
+        participant_name = (row.get("participant_name") or "").strip()
+
+        # Remove rows missing key fields needed for analysis.
+        if not role or not participant_name:
+            continue
+
+        cleaned_row = row.copy()
+        cleaned_row["participant_name"] = participant_name
+        cleaned_row["role"] = role.title().replace("Ux", "UX")
+        cleaned.append(cleaned_row)
+    return cleaned
+
+
+def write_cleaned_rows(rows, output_filename):
+    if not rows:
+        return
+
+    fieldnames = list(rows[0].keys())
+    with open(output_filename, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+rows = load_rows(INPUT_FILE)
+cleaned_rows = clean_rows(rows)
+write_cleaned_rows(cleaned_rows, OUTPUT_FILE)
 
 # Count responses by role
 # Normalize role names so "ux researcher" and "UX Researcher" are counted together
 role_counts = {}
 
-for row in rows:
-    role = row["role"].strip().title()
+for row in cleaned_rows:
+    role = row["role"]
     if role in role_counts:
         role_counts[role] += 1
     else:
@@ -28,7 +64,7 @@ for role, count in sorted(role_counts.items()):
 total_experience = 0
 valid_experience_count = 0
 # This code was buggy because there was a non-numeric value "fifteen" that it was trying to convert to an integer
-for row in rows:
+for row in cleaned_rows:
     try:
         total_experience += int(row["experience_years"])
         valid_experience_count += 1
@@ -45,9 +81,12 @@ print(f"\nAverage years of experience: {avg_experience:.1f}")
 
 # Find the top 5 highest satisfaction scores
 scored_rows = []
-for row in rows:
+for row in cleaned_rows:
     if row["satisfaction_score"].strip():
-        scored_rows.append((row["participant_name"], int(row["satisfaction_score"])))
+        try:
+            scored_rows.append((row["participant_name"], int(row["satisfaction_score"])))
+        except ValueError:
+            continue
 # This code was buggy because it was trying to sort by highest scores but it was in ascending order, thus pulling the lowest scores
 scored_rows.sort(key=lambda x: x[1], reverse=True)
 top5 = scored_rows[:5]
@@ -55,3 +94,5 @@ top5 = scored_rows[:5]
 print("\nTop 5 satisfaction scores:")
 for name, score in top5:
     print(f"  {name}: {score}")
+
+print(f"\nCleaned rows written to {OUTPUT_FILE}")
