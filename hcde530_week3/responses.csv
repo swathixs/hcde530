@@ -1,0 +1,71 @@
+participant_id,name,role,response
+P001,Ava,student,The onboarding flow was easy to follow.
+P002,Ben,researcher,I needed fewer clicks to find past sessions.
+P003,Chloe,designer,The color contrast supports better readability.
+P004,Daniel,developer,Error messages should explain how to recover.
+P005,Emma,manager,Dashboard filters helped me compare team progress.
+P006,Felix,intern,The tutorial tooltip appeared at the right time.
+P007,Grace,analyst,I could complete the task without external help.
+P008,Henry,consultant,Navigation labels were clear and predictable.
+P009,Isla,teacher,The mobile layout felt consistent and stable.
+P010,,student,The sign in screen took too long to load.
+P011,Jack,developer,Keyboard shortcuts improved my efficiency.
+P012,Kira,product owner,The search feature returned relevant results quickly.
+P013,Liam,designer,Spacing between sections made content easier to scan.
+P014,Maya,researcher,The consent step was understandable and concise.
+P015,Noah,manager,Notifications were timely and not distracting.
+P016,Olivia,intern,I liked the progress indicator during setup.
+P017,Priya,analyst,The export button should be more prominent.
+P018,Quinn,consultant,The terminology matched user expectations.
+P019,Ryan,teacher,Form validation helped me correct mistakes early.
+P020,,developer,The table needed sticky headers for long lists.
+P021,Sofia,student,The homepage clearly showed next actions.
+P022,Tyler,researcher,Task completion time was shorter than expected.
+P023,Uma,designer,Icon choices communicated meaning effectively.
+P024,Victor,developer,The loading spinner appeared too often.
+P025,Willow,manager,Role permissions were easy to manage.
+P026,Xavier,intern,The empty state gave useful guidance.
+P027,Yara,analyst,The chart legend was easy to interpret.
+P028,Zane,consultant,Primary actions stood out on each screen.
+P029,Aaron,teacher,The profile page grouped information logically.
+P030,,student,The password reset link was hard to notice.
+P031,Bianca,developer,Autosave reduced anxiety during form entry.
+P032,Carter,product owner,The roadmap view supports planning discussions.
+P033,Daphne,designer,Card components felt visually balanced.
+P034,Ethan,researcher,Participants understood the task instructions quickly.
+P035,Farah,manager,The status badges were useful for triage.
+P036,Gavin,intern,The sidebar collapsed smoothly on small screens.
+P037,Hazel,analyst,I found reports without using search.
+P038,Ian,consultant,Date formatting should match regional preferences.
+P039,Julia,teacher,The confirmation dialog prevented accidental deletion.
+P040,,developer,The API error state lacked actionable detail.
+P041,Kevin,student,The quiz flow kept me focused.
+P042,Layla,researcher,The prototype supported think aloud testing.
+P043,Mason,designer,Typography hierarchy improved scannability.
+P044,Nora,developer,Session timeout warning appeared at the right moment.
+P045,Owen,manager,The summary page helped decision making.
+P046,Paige,intern,The visual cues made navigation intuitive.
+P047,Rohan,analyst,Data sorting worked as expected.
+P048,Stella,consultant,The footer links were easy to locate.
+P049,Theo,teacher,Accessibility labels helped screen reader use.
+P050,,student,The help center article solved my issue.
+P051,Ulysses,developer,Component behavior was consistent across pages.
+P052,Violet,product owner,The backlog view needs clearer priorities.
+P053,Wade,designer,Microinteractions provided useful feedback.
+P054,Xiomara,researcher,Interview notes were easy to tag.
+P055,Yusuf,manager,User roles aligned with team structure.
+P056,Zoe,intern,The submit button should stay visible.
+P057,Adrian,analyst,The benchmark panel loaded quickly.
+P058,Brooke,consultant,The wording was inclusive and simple.
+P059,Colin,teacher,The class setup wizard was straightforward.
+P060,,developer,The retry option should appear after failure.
+P061,Delia,student,The calendar integration saved planning time.
+P062,Elias,researcher,Survey branching logic worked correctly.
+P063,Fiona,designer,Whitespace improved overall readability.
+P064,Gideon,developer,Dark mode contrast needs minor tuning.
+P065,Helena,manager,The KPI cards clarified weekly progress.
+P066,Isaac,intern,The template gallery was easy to browse.
+P067,Jenna,analyst,The annotation tool improved collaboration.
+P068,Kamal,consultant,The settings page should group advanced options.
+P069,Lucia,teacher,The assignment flow was clear for students.
+P070,,student,The final confirmation gave me confidence.

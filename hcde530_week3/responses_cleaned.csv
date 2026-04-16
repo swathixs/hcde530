@@ -1,0 +1,64 @@
+participant_id,name,role,response
+P001,Ava,STUDENT,The onboarding flow was easy to follow.
+P002,Ben,RESEARCHER,I needed fewer clicks to find past sessions.
+P003,Chloe,DESIGNER,The color contrast supports better readability.
+P004,Daniel,DEVELOPER,Error messages should explain how to recover.
+P005,Emma,MANAGER,Dashboard filters helped me compare team progress.
+P006,Felix,INTERN,The tutorial tooltip appeared at the right time.
+P007,Grace,ANALYST,I could complete the task without external help.
+P008,Henry,CONSULTANT,Navigation labels were clear and predictable.
+P009,Isla,TEACHER,The mobile layout felt consistent and stable.
+P011,Jack,DEVELOPER,Keyboard shortcuts improved my efficiency.
+P012,Kira,PRODUCT OWNER,The search feature returned relevant results quickly.
+P013,Liam,DESIGNER,Spacing between sections made content easier to scan.
+P014,Maya,RESEARCHER,The consent step was understandable and concise.
+P015,Noah,MANAGER,Notifications were timely and not distracting.
+P016,Olivia,INTERN,I liked the progress indicator during setup.
+P017,Priya,ANALYST,The export button should be more prominent.
+P018,Quinn,CONSULTANT,The terminology matched user expectations.
+P019,Ryan,TEACHER,Form validation helped me correct mistakes early.
+P021,Sofia,STUDENT,The homepage clearly showed next actions.
+P022,Tyler,RESEARCHER,Task completion time was shorter than expected.
+P023,Uma,DESIGNER,Icon choices communicated meaning effectively.
+P024,Victor,DEVELOPER,The loading spinner appeared too often.
+P025,Willow,MANAGER,Role permissions were easy to manage.
+P026,Xavier,INTERN,The empty state gave useful guidance.
+P027,Yara,ANALYST,The chart legend was easy to interpret.
+P028,Zane,CONSULTANT,Primary actions stood out on each screen.
+P029,Aaron,TEACHER,The profile page grouped information logically.
+P031,Bianca,DEVELOPER,Autosave reduced anxiety during form entry.
+P032,Carter,PRODUCT OWNER,The roadmap view supports planning discussions.
+P033,Daphne,DESIGNER,Card components felt visually balanced.
+P034,Ethan,RESEARCHER,Participants understood the task instructions quickly.
+P035,Farah,MANAGER,The status badges were useful for triage.
+P036,Gavin,INTERN,The sidebar collapsed smoothly on small screens.
+P037,Hazel,ANALYST,I found reports without using search.
+P038,Ian,CONSULTANT,Date formatting should match regional preferences.
+P039,Julia,TEACHER,The confirmation dialog prevented accidental deletion.
+P041,Kevin,STUDENT,The quiz flow kept me focused.
+P042,Layla,RESEARCHER,The prototype supported think aloud testing.
+P043,Mason,DESIGNER,Typography hierarchy improved scannability.
+P044,Nora,DEVELOPER,Session timeout warning appeared at the right moment.
+P045,Owen,MANAGER,The summary page helped decision making.
+P046,Paige,INTERN,The visual cues made navigation intuitive.
+P047,Rohan,ANALYST,Data sorting worked as expected.
+P048,Stella,CONSULTANT,The footer links were easy to locate.
+P049,Theo,TEACHER,Accessibility labels helped screen reader use.
+P051,Ulysses,DEVELOPER,Component behavior was consistent across pages.
+P052,Violet,PRODUCT OWNER,The backlog view needs clearer priorities.
+P053,Wade,DESIGNER,Microinteractions provided useful feedback.
+P054,Xiomara,RESEARCHER,Interview notes were easy to tag.
+P055,Yusuf,MANAGER,User roles aligned with team structure.
+P056,Zoe,INTERN,The submit button should stay visible.
+P057,Adrian,ANALYST,The benchmark panel loaded quickly.
+P058,Brooke,CONSULTANT,The wording was inclusive and simple.
+P059,Colin,TEACHER,The class setup wizard was straightforward.
+P061,Delia,STUDENT,The calendar integration saved planning time.
+P062,Elias,RESEARCHER,Survey branching logic worked correctly.
+P063,Fiona,DESIGNER,Whitespace improved overall readability.
+P064,Gideon,DEVELOPER,Dark mode contrast needs minor tuning.
+P065,Helena,MANAGER,The KPI cards clarified weekly progress.
+P066,Isaac,INTERN,The template gallery was easy to browse.
+P067,Jenna,ANALYST,The annotation tool improved collaboration.
+P068,Kamal,CONSULTANT,The settings page should group advanced options.
+P069,Lucia,TEACHER,The assignment flow was clear for students.
