@@ -1,6 +1,6 @@
 # C4 — APIs and Data Acquisition (Competency Claim)
 
-## What I did (summary)
+## What I did (A Brief Summary)
 
 I used **Google’s Web Fonts Developer API** (public documentation: [Web Fonts API](https://developers.google.com/fonts/docs/developer_api)) to pull the full catalog of hosted fonts, then **filtered** that response down to **serif** families only and saved a structured export for work in another class and for any future UX/visual-design decisions I make.
 
@@ -63,14 +63,14 @@ The script **filters** where `category == "serif"`, then **prints** each match a
 
 ---
 
-## Keeping the API key out of version control (elaborated)
+## Keeping the API key out of version control
 
 **Problem:** Assignment and professional practice both require **never embedding API keys in source code** or pushing them to a **public** GitHub repo. Keys in code get copied, screenshotted, and committed by mistake.
 
 **What I implemented**
 
 1. **`.env` file next to the script**  
-   The secret lives in `hcde530_week4/.env` as something like `GOOGLE_API_KEY=<secret>`. This file is for **my machine only** (and optional sharing through a private, non-Git channel if ever needed).
+   The key lives in `hcde530_week4/.env` as something like `GOOGLE_API_KEY=<secret>`. This file is for **my machine only** (and optional sharing through a private, non-Git channel if ever needed).
 
 2. **`python-dotenv` + `load_dotenv()`**  
    At runtime, `load_dotenv()` reads `.env` and loads variables into the process **environment**—the same place operating systems put configuration. That lets Python read the key with **`os.environ.get("GOOGLE_API_KEY")`** without the literal key appearing in `fetch_serif_fonts.py`.
@@ -85,7 +85,7 @@ The script **filters** where `category == "serif"`, then **prints** each match a
 
 ---
 
-## Strong competency statement (one paragraph)
+## Competency Statement
 
 I called **Google’s Web Fonts Developer API** at `https://www.googleapis.com/webfonts/v1/webfonts`, passing my **API key** as the `key` query parameter after loading it from **`.env`** with **`python-dotenv`** and **`os.environ.get("GOOGLE_API_KEY")`**. The JSON response includes an **`items`** array; each font has metadata such as **`family`**, **`category`**, and **`variants`**. I **filtered** to **`category == "serif"`** because I am studying brand typography and use serifs often, and I wanted a compact list instead of the full catalog. I **printed** each match for quick inspection and **saved** **`family`**, **`category`**, and **`variants`** to **`serif_fonts.csv`** for spreadsheet use. My **`.gitignore`** excludes **`.env`**, so the key is **not** committed to GitHub.
 
