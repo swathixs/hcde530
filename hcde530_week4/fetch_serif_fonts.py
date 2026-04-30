@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 # to pull only the serif fonts and save the extracted data to the CSV file mentioned below. I'm choosing to extract this specific type of font because
 # it's most commonly used in UX and Visual Design for better readability. I've had moments in my HCD work where I'm working on typography and I can't 
 # filter by font family, so this script certainly helps out with that action. This matters for HCD work because it tightens my workflow when figuring out
-# the best font to use for a specific project. I don't have to manually search them up. If necess
+# the best font to use for a specific project. I don't have to manually search them up.
 FONTS_API_BASE = "https://www.googleapis.com/webfonts/v1/webfonts"
 OUTPUT_FILE = "serif_fonts.csv"
 

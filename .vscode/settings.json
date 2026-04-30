@@ -1,0 +1,3 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/hcde530_week4/.venv/bin/python"
+}
